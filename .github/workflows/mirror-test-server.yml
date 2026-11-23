@@ -1,0 +1,31 @@
+name: Testserver spiegeln
+
+# Kopiert den Aufbau von "source" nach "target" (siehe mirror.json).
+# Läuft sofort, wenn mirror.json / das Skript hochgeladen wird – sonst per "Run workflow".
+on:
+  push:
+    branches: [main]
+    paths:
+      - mirror.json
+      - mirror_server.py
+      - .github/workflows/mirror-test-server.yml
+  workflow_dispatch:
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Aufbau Quelle -> Testserver
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python mirror_server.py
