@@ -7,3 +7,8 @@ Der Discord-Server „Hauptstadt Primaten" als Konfiguration.
 - `.github/workflows/discord-sync.yml` – läuft automatisch bei jeder Änderung auf `main`
 
 Voraussetzung: Repository-Secret `DISCORD_BOT_TOKEN`, Bot mit Berechtigung „Kanäle verwalten“.
+
+## Link-Bilder
+`link_images.py` läuft alle 10 Minuten (Workflow „Link-Bilder“). Enthält ein neuer Post in #decks oder #karten einen
+Archidekt-, Moxfield- oder Scryfall-Link, postet der Bot das Vorschaubild als Anhang und blendet die Link-Vorschau aus.
+Zusätzliche Bot-Rechte: Nachrichtenverlauf lesen, Nachrichten in Threads senden, Dateien anhängen, Nachrichten verwalten.

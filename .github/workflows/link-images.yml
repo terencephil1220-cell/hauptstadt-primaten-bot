@@ -1,0 +1,32 @@
+name: Link-Bilder
+
+# Alle 10 Minuten neue Posts in #decks und #karten prüfen.
+# Läuft zusätzlich einmal sofort, wenn das Skript oder dieser Workflow hochgeladen wird.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - link_images.py
+      - .github/workflows/link-images.yml
+  workflow_dispatch:
+
+concurrency:
+  group: link-images
+  cancel-in-progress: false
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Bilder zu Links posten
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python link_images.py

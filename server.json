@@ -1,5 +1,9 @@
 {
   "guild_id": "1209501038739193887",
+  "image_forums": [
+    "decks",
+    "karten"
+  ],
   "categories": [
     {
       "name": "Cardtalks",
@@ -10,11 +14,26 @@
           "topic": "Stell dein Deck vor und diskutiere es. Bitte beim Posten ein Bracket (1-5) wählen.",
           "require_tag": true,
           "tags": [
-            ["Bracket 1", "🟢"],
-            ["Bracket 2", "🔵"],
-            ["Bracket 3", "🟡"],
-            ["Bracket 4", "🟠"],
-            ["Bracket 5", "🔴"]
+            [
+              "Bracket 1",
+              "🟢"
+            ],
+            [
+              "Bracket 2",
+              "🔵"
+            ],
+            [
+              "Bracket 3",
+              "🟡"
+            ],
+            [
+              "Bracket 4",
+              "🟠"
+            ],
+            [
+              "Bracket 5",
+              "🔴"
+            ]
           ]
         },
         {
@@ -23,10 +42,22 @@
           "topic": "Sprecht über einzelne Karten. Bitte beim Posten eine Eigenschaft wählen.",
           "require_tag": true,
           "tags": [
-            ["Game Changer", "⭐"],
-            ["OP", "💥"],
-            ["Combo Piece", "🧩"],
-            ["Infinity Piece", "♾️"]
+            [
+              "Game Changer",
+              "⭐"
+            ],
+            [
+              "OP",
+              "💥"
+            ],
+            [
+              "Combo Piece",
+              "🧩"
+            ],
+            [
+              "Infinity Piece",
+              "♾️"
+            ]
           ]
         },
         {
@@ -35,8 +66,14 @@
           "topic": "Rulings & Regelfragen: Jede Frage ein eigener Post. Alle dürfen mitdiskutieren. Tag 'Geklärt' setzen, sobald die Antwort steht.",
           "require_tag": false,
           "tags": [
-            ["Offen", "❓"],
-            ["Geklärt", "✅"]
+            [
+              "Offen",
+              "❓"
+            ],
+            [
+              "Geklärt",
+              "✅"
+            ]
           ]
         }
       ]
