@@ -7,7 +7,7 @@
         {
           "name": "decks",
           "type": "forum",
-          "topic": "Stell dein Deck vor und diskutiere es. Bitte beim Posten ein Bracket (1-5) wählen.",
+          "topic": "Stell dein Deck vor und diskutiere es. Bitte beim Posten ein Bracket (1-5) und die Deckfarben wählen.",
           "require_tag": true,
           "tags": [
             [
@@ -29,6 +29,34 @@
             [
               "Bracket 5",
               "🔴"
+            ],
+            [
+              "Weiß",
+              "☀️"
+            ],
+            [
+              "Blau",
+              "💧"
+            ],
+            [
+              "Schwarz",
+              "💀"
+            ],
+            [
+              "Rot",
+              "🔥"
+            ],
+            [
+              "Grün",
+              "🌳"
+            ],
+            [
+              "Farblos",
+              "💎"
+            ],
+            [
+              "Fünffarbig",
+              "🌈"
             ]
           ]
         },
