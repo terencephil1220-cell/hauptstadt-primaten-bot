@@ -49,7 +49,13 @@ def api(method, path, body=None):
 
 def main():
     cfg = json.loads(Path(__file__).with_name("server.json").read_text(encoding="utf-8"))
-    gid = cfg["guild_id"]
+    ids = cfg.get("guild_ids") or [cfg["guild_id"]]
+    for gid in ids:
+        sync(cfg, gid)
+
+
+def sync(cfg, gid):
+    print(f"\n=== Server {gid} ===")
     mirror = Path(__file__).with_name("mirror.json")
     if mirror.exists():
         prot = [x.lower() for x in json.loads(mirror.read_text(encoding="utf-8")).get("protected", [])]
