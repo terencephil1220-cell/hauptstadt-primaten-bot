@@ -1,4 +1,5 @@
 {
   "source": "Magic Tabletop EU",
-  "target": "Magic Testing Area"
+  "target": "Magic Testing Area",
+  "protected": ["Magic Tabletop EU"]
 }

@@ -50,6 +50,12 @@ def api(method, path, body=None):
 def main():
     cfg = json.loads(Path(__file__).with_name("server.json").read_text(encoding="utf-8"))
     gid = cfg["guild_id"]
+    mirror = Path(__file__).with_name("mirror.json")
+    if mirror.exists():
+        prot = [x.lower() for x in json.loads(mirror.read_text(encoding="utf-8")).get("protected", [])]
+        guild = api("GET", f"/guilds/{gid}")
+        if gid in prot or guild["name"].lower() in prot:
+            sys.exit(f"SPERRE: '{guild['name']}' ist geschuetzt - keine Aenderungen.")
     existing = api("GET", f"/guilds/{gid}/channels")
 
     def find(name, ctype, parent=None):

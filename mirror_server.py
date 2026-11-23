@@ -37,7 +37,12 @@ CH_FIELDS = ["topic", "nsfw", "rate_limit_per_user", "bitrate", "user_limit",
 warnings = []
 
 
+PROTECTED_IDS = set()  # Server + deren Kanaele/Rollen: nur Lesezugriff erlaubt
+
+
 def dc(method, path, **kw):
+    if method != "GET" and any(pid in path for pid in PROTECTED_IDS):
+        sys.exit(f"SPERRE: Schreibzugriff auf geschuetzten Server verweigert ({method} {path}). Nichts geaendert.")
     for _ in range(5):
         r = S.request(method, API + path, timeout=30, **kw)
         if r.status_code == 429:
@@ -75,6 +80,16 @@ def main():
     dst = find_guild(guilds, cfg["target"], "Ziel")
     if src["id"] == dst["id"]:
         sys.exit("Abbruch: Quelle und Ziel sind derselbe Server.")
+    for p in cfg.get("protected", []) + [cfg["source"]]:
+        g = find_guild(guilds, p, "Geschuetzt")
+        if g["id"] == dst["id"]:
+            sys.exit(f"Abbruch: Ziel '{dst['name']}' ist als geschuetzt markiert.")
+        PROTECTED_IDS.add(g["id"])
+        for c in dc("GET", f"/guilds/{g['id']}/channels").json():
+            PROTECTED_IDS.add(c["id"])
+        for r in dc("GET", f"/guilds/{g['id']}/roles").json():
+            PROTECTED_IDS.add(r["id"])
+    print(f"Schreibschutz aktiv fuer: {', '.join(cfg.get('protected', []))}")
     print(f"Quelle: {src['name']} ({src['id']})  ->  Ziel: {dst['name']} ({dst['id']})\n")
 
     # ---------- Rollen ----------
