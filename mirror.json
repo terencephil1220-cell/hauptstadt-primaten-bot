@@ -1,5 +1,6 @@
 {
-  "source": "Magic Tabletop EU",
-  "target": "Magic Testing Area",
-  "protected": ["Magic Tabletop EU"]
+  "_hinweis": "Quelle = Magic Table Top (Hauptserver, nur lesen) | Ziel = Magic Testing Admin Area",
+  "source": "1363067445140525086",
+  "target": "1574412826616012852",
+  "protected": ["1363067445140525086"]
 }
