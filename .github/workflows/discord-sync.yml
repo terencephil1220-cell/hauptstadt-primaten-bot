@@ -1,0 +1,25 @@
+name: Discord Sync
+
+# Läuft automatisch, sobald server.json oder das Skript auf main geändert wird.
+# Manuell starten geht zusätzlich über "Run workflow".
+on:
+  push:
+    branches: [main]
+    paths:
+      - server.json
+      - discord_setup.py
+      - .github/workflows/discord-sync.yml
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Server mit server.json abgleichen
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python discord_setup.py
