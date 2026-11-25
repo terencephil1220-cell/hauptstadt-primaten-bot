@@ -1,0 +1,74 @@
+{
+  "_hinweis": "Aufbau fuer 'Magic Talks and Games' (Hauptsitz). Wird von mtg_setup.py angelegt/aktualisiert, es wird nie etwas geloescht.",
+  "guild_id": "1575076721357488168",
+
+  "staff_roles": [
+    {"name": "Admin", "color": "#E74C3C", "hoist": true, "perms": ["ADMINISTRATOR"]},
+    {"name": "Judges", "color": "#9B59B6", "hoist": true, "perms": ["MANAGE_MESSAGES", "MANAGE_THREADS", "MODERATE_MEMBERS", "KICK_MEMBERS", "MUTE_MEMBERS", "MOVE_MEMBERS"]},
+    {"name": "Magic-Helfer", "color": "#3498DB", "hoist": true, "perms": ["MANAGE_THREADS", "MOVE_MEMBERS"]}
+  ],
+
+  "level_roles": [
+    {"name": "Erzmagier", "color": "#F1C40F", "level": 50},
+    {"name": "Zaubermeister", "color": "#E67E22", "level": 30},
+    {"name": "Magier", "color": "#1ABC9C", "level": 15},
+    {"name": "Zauberlehrling", "color": "#95A5A6", "level": 5}
+  ],
+
+  "formats": ["Bracket 1", "Bracket 2", "Bracket 3", "Bracket 4", "Bracket 5", "Pauper", "Standard", "Pauper Commander"],
+  "frequencies": [["oft", "🔥"], ["normal", "👍"], ["weniger", "🌙"]],
+
+  "rules_text": "📜 **Server-Regeln (Platzhalter)**\n\n1. Sei respektvoll zu allen.\n2. Kein Spam, keine Werbung ohne Erlaubnis.\n3. Halte dich an die Kanal-Themen.\n4. Anweisungen von Admins und Judges gelten.\n\n_Die endgültigen Regeln folgen._",
+
+  "categories": [
+    {
+      "name": "📜 Start",
+      "channels": [
+        {"name": "regeln", "readonly": true, "topic": "Die Server-Regeln. Bitte lesen und akzeptieren."},
+        {"name": "willkommen", "readonly": true, "topic": "Willkommen bei Magic Talks and Games!"},
+        {"name": "ankündigungen", "readonly": true, "topic": "Neuigkeiten vom Team."}
+      ]
+    },
+    {
+      "name": "💬 Magic Talks",
+      "channels": [
+        {"name": "allgemein", "topic": "Alles rund um Magic."},
+        {"name": "vorstellung", "topic": "Stell dich kurz vor: Was spielst du, welche Decks, welche Formate?"},
+        {"name": "diskussionen", "type": "forum", "require_tag": false,
+         "topic": "Diskussionen rund um Magic: Meta, Sets, Formate, Banlist. Jedes Thema ein eigener Post.",
+         "tags": [["Commander", "👑"], ["Pauper", "🪙"], ["Standard", "📘"], ["Pauper Commander", "🎩"], ["Arena", "💻"], ["Meta", "📊"], ["Neues Set", "✨"], ["Banlist", "🚫"]]},
+        {"name": "decks", "type": "forum", "require_tag": true,
+         "topic": "Stell dein Deck vor und diskutiere es. Bitte beim Posten Format/Bracket und Farben wählen.",
+         "tags": [["Bracket 1", "🟢"], ["Bracket 2", "🔵"], ["Bracket 3", "🟡"], ["Bracket 4", "🟠"], ["Bracket 5", "🔴"], ["Pauper", "🪙"], ["Standard", "📘"], ["Pauper Commander", "🎩"], ["Arena", "💻"], ["Weiß", "☀️"], ["Blau", "💧"], ["Schwarz", "💀"], ["Rot", "🔥"], ["Grün", "🌳"], ["Farblos", "💎"], ["Mehrfarbig", "🌈"]]},
+        {"name": "karten", "type": "forum", "require_tag": true,
+         "topic": "Sprecht über einzelne Karten. Bitte beim Posten eine Eigenschaft wählen.",
+         "tags": [["Game Changer", "⭐"], ["OP", "💥"], ["Combo Piece", "🧩"], ["Infinity Piece", "♾️"], ["Budget", "💰"]]},
+        {"name": "regelfragen", "type": "forum", "require_tag": false,
+         "topic": "Rulings & Regelfragen: Jede Frage ein eigener Post. Tag 'Geklärt' setzen, sobald die Antwort steht.",
+         "tags": [["Offen", "❓"], ["Geklärt", "✅"]]},
+        {"name": "off-topic", "topic": "Alles, was nicht Magic ist."}
+      ]
+    },
+    {
+      "name": "🎲 Tabletop Simulator",
+      "channels": [
+        {"name": "tts-info", "readonly": true, "topic": "Infos zu Tabletop Simulator, Mods und wie ihr einen Tisch erstellt."},
+        {"name": "spielersuche", "type": "forum", "require_tag": true,
+         "topic": "Suche Mitspieler: Format/Bracket wählen, Zeit angeben, los geht's.",
+         "tags": [["Bracket 1", "🟢"], ["Bracket 2", "🔵"], ["Bracket 3", "🟡"], ["Bracket 4", "🟠"], ["Bracket 5", "🔴"], ["Pauper", "🪙"], ["Standard", "📘"], ["Pauper Commander", "🎩"], ["Arena", "💻"], ["Tabletop Simulator", "🎲"], ["Spelltable", "📷"], ["Vor Ort", "📍"], ["Gefunden", "✅"]]},
+        {"name": "Lobby", "type": "voice"}
+      ]
+    },
+    {
+      "name": "🛡️ Team",
+      "private": true,
+      "channels": [
+        {"name": "team-chat", "topic": "Interner Austausch für Admins, Judges und Magic-Helfer."},
+        {"name": "mod-log", "topic": "Discord-Updates und Logs."}
+      ]
+    }
+  ],
+
+  "onboarding_default_channels": ["regeln", "willkommen", "ankündigungen", "allgemein", "vorstellung", "diskussionen", "decks", "karten", "regelfragen", "off-topic", "tts-info", "spielersuche"],
+  "community_channels": {"rules": "regeln", "updates": "mod-log"}
+}

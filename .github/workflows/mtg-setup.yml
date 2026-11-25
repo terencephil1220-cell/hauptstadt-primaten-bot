@@ -1,0 +1,29 @@
+name: Magic Talks and Games Aufbau
+
+# Läuft automatisch, sobald mtg.json oder das Skript auf main geändert wird.
+on:
+  push:
+    branches: [main]
+    paths:
+      - mtg.json
+      - mtg_setup.py
+      - .github/workflows/mtg-setup.yml
+  workflow_dispatch:
+
+concurrency:
+  group: mtg-setup
+  cancel-in-progress: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Server mit mtg.json abgleichen
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: python mtg_setup.py
