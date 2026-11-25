@@ -240,37 +240,37 @@ def sync_onboarding(cfg, gid, roles, channels):
     old_prompts = {p["title"]: p for p in current.get("prompts", [])}
     fallback = channels.get("allgemein", {}).get("id")
 
-    def build(with_fallback):
+    # Eine Frage pro Haeufigkeit (oft/normal/weniger), Mehrfachauswahl ueber alle Formate.
+    # Discord erlaubt nur wenige Fragen, so bleiben alle Format x Haeufigkeit-Rollen erhalten.
+    def build():
         prompts = []
-        for fmt in cfg["formats"]:
-            title = f"Wie oft spielst du {fmt}?"
+        for freq, emoji in cfg["frequencies"]:
+            title = f"Was spielst du {freq.upper()}? {emoji}"
             old = old_prompts.get(title, {})
             old_opts = {o["title"]: o for o in old.get("options", [])}
             opts = []
-            for freq, emoji in cfg["frequencies"]:
+            for fmt in cfg["formats"]:
                 role = roles.get(f"{fmt} · {freq}")
-                t = freq.capitalize()
-                opts.append({"id": old_opts.get(t, {}).get("id", snowflake()), "title": t, "emoji_name": emoji,
+                opts.append({"id": old_opts.get(fmt, {}).get("id", snowflake()), "title": fmt,
                              "role_ids": [role["id"]] if role else [], "channel_ids": []})
-            t = "Spiele ich nicht"
+            t = "Nichts davon"
             opts.append({"id": old_opts.get(t, {}).get("id", snowflake()), "title": t, "emoji_name": "➖",
-                         "role_ids": [], "channel_ids": [fallback] if (with_fallback and fallback) else []})
+                         "role_ids": [], "channel_ids": [fallback] if fallback else []})
             prompts.append({"id": old.get("id", snowflake()), "type": 0, "title": title, "options": opts,
-                            "single_select": True, "required": True, "in_onboarding": True})
+                            "single_select": False, "required": True, "in_onboarding": True})
         return prompts
 
     defaults = [channels[n]["id"] for n in cfg["onboarding_default_channels"] if n in channels]
-    for with_fallback in (False, True):
-        for enabled in (True, False):
-            body = {"prompts": build(with_fallback), "default_channel_ids": defaults, "enabled": enabled, "mode": 0}
-            try:
-                api("PUT", f"/guilds/{gid}/onboarding", body)
-                print(f"  {len(cfg['formats'])} Pflichtfragen gespeichert, Onboarding {'AKTIV' if enabled else 'gespeichert, aber noch AUS'}.")
-                if not enabled:
-                    warn("Onboarding konnte nicht automatisch aktiviert werden - in Server-Einstellungen > Onboarding einschalten.")
-                return
-            except DiscordError as e:
-                print(f"  Versuch (enabled={enabled}, fallback={with_fallback}) fehlgeschlagen: {e}")
+    for enabled in (True, False):
+        body = {"prompts": build(), "default_channel_ids": defaults, "enabled": enabled, "mode": 0}
+        try:
+            api("PUT", f"/guilds/{gid}/onboarding", body)
+            print(f"  {len(body['prompts'])} Pflichtfragen gespeichert, Onboarding {'AKTIV' if enabled else 'gespeichert, aber noch AUS'}.")
+            if not enabled:
+                warn("Onboarding konnte nicht automatisch aktiviert werden - in Server-Einstellungen > Onboarding einschalten.")
+            return
+        except DiscordError as e:
+            print(f"  Versuch (enabled={enabled}) fehlgeschlagen: {e}")
     warn("Onboarding konnte nicht gespeichert werden (siehe Fehler oben).")
 
 
